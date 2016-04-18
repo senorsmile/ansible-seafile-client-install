@@ -1,0 +1,9 @@
+---
+- name: If host running arch or derivative
+  include: arch.yml
+  when: ansible_pkg_mgr == 'pacman'
+
+- name: If host running ubuntu
+  include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu' 
+

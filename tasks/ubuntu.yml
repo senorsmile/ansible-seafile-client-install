@@ -1,0 +1,19 @@
+---
+- set_fact:
+    filename: 'seafile_5.1.0_amd64.deb'
+- name: Download deb
+  get_url:
+    url: "https://bintray.com/artifact/download/seafile-org/seafile/{{ filename }}"
+    dest: '/usr/local/src/{{ filename }}'
+
+#- name: Apt install gdebi
+#  apt:
+#    name: gdebi
+#    state: present
+#
+#- name: Install deb
+#  shell: gdebi /usr/local/src/seafile*.deb     
+
+- name: Apt install deb file
+  apt:
+    deb: '/usr/local/src/{{ filename }}'
