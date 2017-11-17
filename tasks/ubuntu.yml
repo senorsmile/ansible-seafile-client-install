@@ -1,13 +1,15 @@
 ---
-- set_fact:
-    filename: 'seafile_5.1.0_amd64.deb'
+## https://github.com/haiwen/seafile-user-manual/blob/master/en/desktop/install-on-linux.md#wiki-ubuntu
 
-- name: Download deb
-  get_url:
-    url: "https://bintray.com/artifact/download/seafile-org/seafile/{{ filename }}"
-    dest: '/usr/local/src/{{ filename }}'
+- name: Add seafile ppa
+  apt_repository:
+    repo: "ppa:seafile/seafile-client"
 
-- name: Apt install deb file
-  become: True
+- name: Apt install seafile client
   apt:
-    deb: '/usr/local/src/{{ filename }}'
+    name: "{{ item }}"
+    state: present
+    update_cache: True
+    cache_valid_time: 86400 # = 1 day
+  with_items:
+    - seafile-gui   
