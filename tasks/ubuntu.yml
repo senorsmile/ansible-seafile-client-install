@@ -1,6 +1,14 @@
 ---
 ## https://github.com/haiwen/seafile-user-manual/blob/master/en/desktop/install-on-linux.md#wiki-ubuntu
 
+- name: Validate install type
+  assert:
+    that: ( 
+            seafile_install_type == 'gui'
+            or
+            seafile_install_type == 'cli'
+          )
+
 - name: Add seafile ppa
   apt_repository:
     repo: "ppa:seafile/seafile-client"
@@ -12,4 +20,4 @@
     update_cache: True
     cache_valid_time: 86400 # = 1 day
   with_items:
-    - seafile-gui   
+    - "seafile-{{ seafile_install_type }}"
